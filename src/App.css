@@ -1,3 +1,10 @@
-.App {
-  text-align: center;
+.app-wrapper {
+  padding-top: 70px;
+}
+
+.header {
+  height: 70px;
+  padding: 10px;
+  background-color: #92b4c5;
+  color: #fff;
 }
