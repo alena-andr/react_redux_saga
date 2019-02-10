@@ -1,9 +1,7 @@
-import { all } from 'redux-saga/effects'
+import { takeEvery } from 'redux-saga/effects';
 
+import { requestDataSaga } from './requestSagas';
 
-// single entry point to start all Sagas at once
 export default function* rootSaga() {
-    yield all([
-
-    ])
-}
+    yield takeEvery('GET_DATA', requestDataSaga);
+};

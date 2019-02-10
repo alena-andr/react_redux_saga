@@ -5,7 +5,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootSaga from '../sagas/rootSagas';
 import rootReducer from '../reducers/rootReducer';
 
-
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore() {

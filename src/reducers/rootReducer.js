@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 
-import loader from './loader';
-
+import requestReducers from './requestReducers';
+import optionReducers from './optionReducers';
 
 const rootReducer = combineReducers({
-    loader,
+  requests: requestReducers,
+  options: optionReducers,
 });
 
 export default rootReducer;

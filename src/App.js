@@ -5,8 +5,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import CompaniesList from './components/CompaniesList';
-import BikesList from './components/BikesList';
-
+import StationsList from './components/StationsList';
 
 class App extends PureComponent {
   render() {
@@ -15,11 +14,13 @@ class App extends PureComponent {
         <Header/>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-6">
+            <div className="col-6 py-3">
+              <h3>Companies</h3>
               <CompaniesList/>
             </div>
-            <div className="col-6">
-              <BikesList/>
+            <div className="col-6 py-3">
+              <h3>Stations</h3>
+              <StationsList/>
             </div>
           </div>
         </div>
