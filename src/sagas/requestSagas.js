@@ -3,7 +3,8 @@ import { put, call } from 'redux-saga/effects';
 import request from '../utils/request';
 import { createCompaniesList, createStationsList } from '../utils/options';
 import { addData } from '../actions/requestActions';
-import { setActiveCompanyId, setErrorText } from '../actions/optionActions';
+import { setSelectedCompanyIdAndName } from '../actions/companiesActions';
+import { setErrorText } from '../actions/optionActions';
 
 const urls = {
   companies: '/networks?fields=id,company,location',
@@ -26,11 +27,12 @@ export function* requestCompanySaga(name) {
   try {
     const response = yield call(request, urls[name]);
     const companies = createCompaniesList(response.data.networks);
-    const id = companies[0].id;
+    const defaultIdCompany = companies[0].id;
+    const defaultNameCompany = companies[0].name;
 
     yield put(addData(name, companies));
-    yield put(setActiveCompanyId(id));
-    yield requestStationsSaga('stations', id);
+    yield put(setSelectedCompanyIdAndName(defaultIdCompany, defaultNameCompany));
+    yield requestStationsSaga('stations', defaultIdCompany);
   } catch (e) {
     yield put(setErrorText('companiesRequestError', 'Oooops... Failed to load companies.'));
   }

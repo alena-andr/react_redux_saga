@@ -19,3 +19,7 @@ header h1::before {
   vertical-align: middle;
   height: 100%;
 }
+
+.favorite-station {
+  color: blue;
+}

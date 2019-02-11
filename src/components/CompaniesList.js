@@ -1,40 +1,43 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { getData } from '../actions/requestActions';
-import { setActiveCompanyId } from '../actions/optionActions';
+import { setSelectedCompanyIdAndName } from '../actions/companiesActions';
 
 class CompaniesList extends PureComponent {
   componentDidMount() {
     this.props.getData('companies');
   }
 
-  setCurrentBikesForCompany = e => {
-    const { id } = e.target;
+  setCurrentBikesForCompany(id, name) {
     this.props.getData('stations', id);
-    this.props.setActiveCompanyId(id);
+    this.props.setSelectedCompanyIdAndName(id, name);
   };
 
   render() {
-    const { companies, activeCompanyId } = this.props;
+    const { companies, selectedCompanyId, selectedCompanyName } = this.props;
     return (
-      <ul className="list-group list-group-flush">
-        {
-          companies.map(company => {
-            const { id, name, country, city } = company;
-            return  (
-              <li
-                id={ id }
-                className={`list-group-item list-group-item-action ${ activeCompanyId === id ? 'active': '' }`}
-                key={ id }
-                onClick={this.setCurrentBikesForCompany}
-              >
-                {`${ name }, ${ country }, ${ city }`}
-              </li>
-            );
-          })
-        }
-      </ul>
+      <Fragment>
+        <h3>Companies</h3>
+        <span><strong>Selected company name:</strong> { selectedCompanyName }</span>
+        <ul className="list-group list-group-flush">
+          {
+            companies.map(company => {
+              const { id, name, country, city } = company;
+              return  (
+                <li
+                  id={ id }
+                  className={`list-group-item list-group-item-action ${ selectedCompanyId === id ? 'active': '' }`}
+                  key={ id }
+                  onClick={this.setCurrentBikesForCompany.bind(this, id, name)}
+                >
+                  {`${ name }, ${ country }, ${ city }`}
+                </li>
+              );
+            })
+          }
+        </ul>
+      </Fragment>
     );
   }
 }
@@ -42,7 +45,8 @@ class CompaniesList extends PureComponent {
 const mapStateToProps = state => {
   return {
     companies: state.requests.companies,
-    activeCompanyId: state.options.activeCompanyId,
+    selectedCompanyId: state.companies.selectedCompanyId,
+    selectedCompanyName: state.companies.selectedCompanyName,
   }
 };
 const mapDispatchToProps = dispatch => {
@@ -50,9 +54,9 @@ const mapDispatchToProps = dispatch => {
     getData: (name, id) => {
       dispatch(getData(name, id));
     },
-    setActiveCompanyId: id => {
-      dispatch(setActiveCompanyId(id));
-    }
+    setSelectedCompanyIdAndName: id => {
+      dispatch(setSelectedCompanyIdAndName(id));
+    },
   }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CompaniesList);

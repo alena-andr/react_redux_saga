@@ -15,11 +15,9 @@ class App extends PureComponent {
         <div className="container-fluid">
           <div className="row">
             <div className="col-6 py-3">
-              <h3>Companies</h3>
               <CompaniesList/>
             </div>
             <div className="col-6 py-3">
-              <h3>Stations</h3>
               <StationsList/>
             </div>
           </div>
