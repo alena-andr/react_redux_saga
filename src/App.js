@@ -21,12 +21,15 @@ class App extends PureComponent {
         <Header />
         <div className="container-fluid">
           <div className="row">
-            { companies ? <div className="loader" /> : (
+            {companies ?
+              (<div className="d-flex w-100 align-items-center justify-content-center">
+                <div className="loader"/>
+              </div>) : (
               <Fragment>
-                <div className="col-6 py-3">
+                <div className="col-6 py-4">
                   <CompaniesList />
                 </div>
-                <div className="col-6 py-3">
+                <div className="col-6 py-4">
                   <StationsList />
                 </div>
               </Fragment>

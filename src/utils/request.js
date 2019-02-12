@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const origin = 'http://api.citybik.es/v2';
+const origin = 'https://api.citybik.es/v2';
 
 export default function request(url) {
   return axios({
