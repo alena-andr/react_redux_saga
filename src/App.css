@@ -5,21 +5,24 @@
 .header {
   height: 70px;
   padding: 10px;
-  background-color: #92b4c5;
   color: #fff;
 }
 
-header h1 {
-  height: 100%;
+.cursor-pointer {
+  cursor: pointer;
 }
 
-header h1::before {
-  content: '';
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
+.loader {
+  width: 120px;
+  height: 120px;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #007bff;
+  border-radius: 50%;
+  margin: auto;
+  animation: spin 2s linear infinite;
 }
 
-.favorite-station {
-  color: blue;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

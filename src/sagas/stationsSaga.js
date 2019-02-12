@@ -3,18 +3,23 @@ import { put, select } from 'redux-saga/effects';
 import { updateArrayWithLikedStations } from '../actions/stationsActions';
 
 export function* toggleLikedStationSaga(action) {
-  const arrayLikedStations = select((state) => state.likedStations.includes(action.name));
+  const arrayLikedStations = yield select((state) => state.stations.likedStations);
   const checkStationInArray = arrayLikedStations.includes(action.name);
+
   if (!checkStationInArray) {
-    arrayLikedStations.push(action.name);
-    console.log('stations', arrayLikedStations);
-    yield put(updateArrayWithLikedStations(arrayLikedStations));
+    const newArrayStations = [ ...arrayLikedStations ];
+    newArrayStations.push(action.name);
+
+    yield put(updateArrayWithLikedStations(newArrayStations));
   } else {
-    arrayLikedStations.forEach((station, index) => {
+    const newArrayStations = [ ...arrayLikedStations ];
+
+    newArrayStations.forEach((station, index) => {
       if (station === action.name) {
-        arrayLikedStations.splice(index, 1);
+        newArrayStations.splice(index, 1);
       }
     });
-    yield put(updateArrayWithLikedStations(arrayLikedStations));
+
+    yield put(updateArrayWithLikedStations(newArrayStations));
   }
 }

@@ -1,3 +1,5 @@
+import { ADD_DATA } from '../constants/constants';
+
 const initialState = {
   companies: [],
   stations: [],
@@ -5,8 +7,8 @@ const initialState = {
 
 function requestReducers(state = initialState, action) {
   switch (action.type) {
-    case 'ADD_DATA':
-      return {...state, [action.name]: action.data};
+    case ADD_DATA:
+      return { ...state, [action.name]: action.data };
     default:
       return state;
   }
