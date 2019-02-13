@@ -30,10 +30,12 @@ class CompaniesList extends PureComponent {
             {selectedCompanyName}
           </div>
         </div>
-        { companiesRequestError && <div className="text-danger border border-danger">{companiesRequestError}</div> }
+
+        {companiesRequestError && <div className="text-danger border border-danger">{companiesRequestError}</div>}
+
         <div className="h-75 overflow-auto">
           <ul className="list-group list-group-flush">
-            { companies.map(company => {
+            {companies.map(company => {
               const { id, name, country, city } = company;
               const fullNameCompany = `${name}, ${country}, ${city}`;
               return (

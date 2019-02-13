@@ -14,22 +14,22 @@ class App extends PureComponent {
   }
 
   render() {
-    const { loading: { companies } }  = this.props;
+    const { globalLoading }  = this.props;
 
     return (
       <div className="app-wrapper">
         <Header />
         <div className="container-fluid">
           <div className="row">
-            {companies ?
+            {globalLoading ?
               (<div className="d-flex w-100 align-items-center justify-content-center">
                 <div className="loader"/>
               </div>) : (
               <Fragment>
-                <div className="col-6 py-4">
+                <div className="col-6 h-100 py-4">
                   <CompaniesList />
                 </div>
-                <div className="col-6 py-4">
+                <div className="col-6 h-100 py-4">
                   <StationsList />
                 </div>
               </Fragment>
@@ -43,7 +43,7 @@ class App extends PureComponent {
 
 const mapStateToProps = state => {
   return {
-    loading: state.options.loading,
+    globalLoading: state.options.globalLoading,
   }
 };
 const mapDispatchToProps = dispatch => {

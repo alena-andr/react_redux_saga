@@ -12,12 +12,12 @@ class StationsList extends PureComponent {
   };
 
   render() {
-    const { stations, likedStations, loading, errors: { stationsRequestError } } = this.props;
+    const { stations, likedStations, stationsLoading, errors: { stationsRequestError } } = this.props;
     const numberOfStations = stations.length;
 
     return (
       <Fragment>
-        {loading.stations ?
+        {stationsLoading ?
           (<div className="d-flex h-100 align-items-center justify-content-center">
             <div className="loader"/>
           </div>) : (
@@ -29,7 +29,9 @@ class StationsList extends PureComponent {
                   {numberOfStations}
                 </div>
               </div>
-              { stationsRequestError && <div className="text-danger border border-danger">{stationsRequestError}</div> }
+
+              {stationsRequestError && <div className="text-danger border border-danger">{stationsRequestError}</div>}
+
               <div className="h-75 overflow-auto">
                 <ul className="list-group list-group-flush">
                   {stations.map(station => {
@@ -62,7 +64,7 @@ const mapStateToProps = state => {
   return {
     stations: state.requests.stations,
     likedStations: state.stations.likedStations,
-    loading: state.options.loading,
+    stationsLoading: state.options.stationsLoading,
     errors: state.options.errors,
   }
 };

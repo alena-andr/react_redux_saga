@@ -13,34 +13,36 @@ const urls = {
 
 export function* requestStationsSaga(name, id) {
   const url = `${urls[name]}${id}`;
+
   try {
-    yield put(handlingStatusLoading(name, true));
+    yield put(handlingStatusLoading('stationsLoading', true));
+
     const response = yield call(request, url);
     const stations = createStationsList(response.data.network.stations);
 
-    yield put(handlingStatusLoading(name, false));
+    yield put(handlingStatusLoading('stationsLoading', false));
     yield put(addData(name, stations));
   } catch(e) {
-    yield put(handlingStatusLoading(name, false));
+    yield put(handlingStatusLoading('stationsLoading', false));
     yield put(setErrorText('stationsRequestError', 'Oooops... Failed to load stations.'));
   }
 }
 
 export function* requestCompanySaga(name) {
   try {
-    yield put(handlingStatusLoading(name, true));
+    yield put(handlingStatusLoading('globalLoading', true));
 
     const response = yield call(request, urls[name]);
     const companies = createCompaniesList(response.data.networks);
     const defaultIdCompany = companies[0].id;
     const defaultFullNameCompany = `${companies[0].name}, ${companies[0].country}, ${companies[0].city}`;
 
-    yield put(handlingStatusLoading(name, false));
+    yield put(handlingStatusLoading('globalLoading', false));
     yield put(addData(name, companies));
     yield put(setSelectedCompanyIdAndName(defaultIdCompany, defaultFullNameCompany));
     yield requestStationsSaga('stations', defaultIdCompany);
   } catch (e) {
-    yield put(handlingStatusLoading(name, false));
+    yield put(handlingStatusLoading('globalLoading', false));
     yield put(setErrorText('companiesRequestError', 'Oooops... Failed to load companies.'));
   }
 }
